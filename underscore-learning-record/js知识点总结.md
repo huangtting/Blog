@@ -73,7 +73,7 @@ alert(instance.getSuperValue()); //true
 最后，所有引用类型默认都继承了Object ，而这个继承也是通过原型链实现的。所有函数的默认原型都是Object 的实例，因此默认原型都会包含一个内部指针，指向 Object.prototype 。
 
 如下图:
-
+![3.png](https://github.com/huangtting/Blog/raw/master/images/3.png)
 
 #####(2)确定原型和实例的关系
 
@@ -208,6 +208,41 @@ isUndefined使用void 0，是因为void 0始终返回undefined，但是全局的
         return obj === void 0;
     };
 ```
+
+###6.bind
+bind函数的polyfill比较复杂。
+
+首先bind返回一个函数，该函数可以被new调用。要根据this的指向，通过instanceof判断是否是new调用，然后返回不一样的返回值。
+
+以及bind时可以传入参数，这些参数会优先使用。
+
+具体看代码吧。
+
+###7.函数节流和去抖
+#####函数节流
+throttle。函数节流的作用是以一定的频率执行函数，控制函数的触发频率。
+
+实现方法：
+其一通过previous记录上一次执行的时间，判断是否已经wait足够久，如果是，则执行，并更新上次执行的时间戳，如此循环；
+其二使用定时器，每次真正执行函数之前，如果已经存在定时器，则不执行。直到定时器触发，handler 被清除，然后执行，并重新设置定时器。
+
+underscore.js中同时使用了这两个方法，为的是提供{leading:false}，{trailing:false}两种模式。
+以scroll为例，滚动开始时会触发一次函数
+滚动结束后也会触发一次，所以正常情况下，都会触发两次函数。
+但是可以通过 {trailing: false} {leading: false}配置。
+
+```
+window.onscroll = _.throttle(log, 1000);
+window.onscroll = _.throttle(log, 1000, {leading: false});
+window.onscroll = _.throttle(log, 1000, {trailing:false});
+```
+
+#####函数去抖
+debounce。函数去抖的作用是多次调用函数后，函数真正地执行是在最后一次函数调用后的wait毫秒。
+
+实现方法：在多次连续调用的每一次都设置setTimeout，直到wait时间后，由setTimeout执行函数。
+
+
 
 
 
