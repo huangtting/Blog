@@ -96,8 +96,123 @@ alert(SubType.prototype.isPrototypeOf(instance)); //true
 
 问题出在包含引用类型值的原型属性会被所有实例共享；而这也正是为什么要在构造函数中，而不是在原型对象中定义属性的原因。但是在通过原型来实现继承时，原型实际上会变成另一个类型的实例。于是，原先的实例属性也就顺理成章地变成了现在的原型属性了。
 
-#####ES6的语法糖
+#####ES6的class语法糖
 
+类声明。函数声明会提升，类声明不会提升。
+```
+class Rectangle {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+}
+```
+类表达式，类表达式中的声明部分会被提升。
+```
+/* 匿名类 */ 
+let Rectangle = class {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+};
+
+/* 命名的类 */ 
+let Rectangle = class Rectangle {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+};
+```
+
+类的原型方法，也就是相当于定义在原型对象Rectangle.prototype上的方法。
+```
+class Rectangle {
+    // constructor
+    constructor(height, width) {
+        this.height = height;
+        this.width = width;
+    }
+    // Getter
+    get area() {
+        return this.calcArea()
+    }
+    // Method
+    calcArea() {
+        return this.height * this.width;
+    }
+}
+const square = new Rectangle(10, 10);
+
+console.log(square.area);
+// 100
+```
+静态方法，相当于直接定义在构造函数上的方法，相当于定义了Point.distance.
+```
+class Point {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    static distance(a, b) {
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+
+        return Math.hypot(dx, dy);
+    }
+}
+
+const p1 = new Point(5, 5);
+const p2 = new Point(10, 10);
+
+console.log(Point.distance(p1, p2));
+```
+
+使用extends创建子类：
+
+```
+class Animal { 
+  constructor(name) {
+    this.name = name;
+  }
+  
+  speak() {
+    console.log(this.name + ' makes a noise.');
+  }
+}
+
+class Dog extends Animal {
+  speak() {
+    console.log(this.name + ' barks.');
+  }
+}
+
+var d = new Dog('Mitzie');
+// 'Mitzie barks.'
+d.speak();
+```
+使用super可以调用父类的方法：
+```
+class Cat { 
+  constructor(name) {
+    this.name = name;
+  }
+  
+  speak() {
+    console.log(this.name + ' makes a noise.');
+  }
+}
+
+class Lion extends Cat {
+  speak() {
+    super.speak();
+    console.log(this.name + ' roars.');
+  }
+}
+Mix-ins 混
+```
 
 ###4.for in 和 hasOwnProperty
 
