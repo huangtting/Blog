@@ -1,17 +1,17 @@
-#js知识点总结
+# js知识点总结
 
-###1. 0与-0
+### 1. 0与-0
 ```
 0 ===-0，1/0 => Infinity, 1/-0 => -Infinity
 ```
 
-###2.NaN
+### 2.NaN
 ```
 NaN !== NaN
 
 0/0 //NaN
 ```
-####Number.isNaN() 和 全局 isNaN()
+#### Number.isNaN() 和 全局 isNaN()
 
 Number.isNaN() 方法确定传递的值是否为NaN并且类型是Number。它是原始的全局isNaN()的更强大的版本。，只有在参数是真正的数字类型，且值为 NaN 的时候才会返回 true。
 ```
@@ -29,8 +29,8 @@ isNaN = function(value) {
 
  确定一个值是哪种基本类型可以使用 typeof 操作符，而确定一个值是哪种引用类型可以使用
 instanceof 操作符。
-###3.instanceof 和 isPrototypeOf
-#####(1)首先了解下原型链相关知识:
+### 3.instanceof 和 isPrototypeOf
+##### (1)首先了解下原型链相关知识:
 
 每个函数都有一个prototype属性，这个属性是一个指针，他指向这个函数的原型对象。也就是每一个函数都有一个原型对象，这个对象可以通过函数的prototype属性访问到。
 
@@ -75,7 +75,7 @@ alert(instance.getSuperValue()); //true
 如下图:
 ![3.png](https://github.com/huangtting/Blog/raw/master/images/3.png)
 
-#####(2)确定原型和实例的关系
+##### (2)确定原型和实例的关系
 
 第一种方式是使用 instanceof 操作符，这个操作符用来测试实例与原型链中出现过的构造函数，检测一个对象在其原型链中是否存在某个构造函数的 prototype 属性.
 
@@ -92,11 +92,11 @@ alert(Object.prototype.isPrototypeOf(instance)); //true
 alert(SuperType.prototype.isPrototypeOf(instance)); //true
 alert(SubType.prototype.isPrototypeOf(instance)); //true
 ```
-#####原型链存在的问题
+##### 原型链存在的问题
 
 问题出在包含引用类型值的原型属性会被所有实例共享；而这也正是为什么要在构造函数中，而不是在原型对象中定义属性的原因。但是在通过原型来实现继承时，原型实际上会变成另一个类型的实例。于是，原先的实例属性也就顺理成章地变成了现在的原型属性了。
 
-#####ES6的class语法糖
+##### ES6的class语法糖
 
 类声明。函数声明会提升，类声明不会提升。
 ```
@@ -214,7 +214,7 @@ class Lion extends Cat {
 Mix-ins 混
 ```
 
-###4.for in 和 hasOwnProperty
+### 4.for in 和 hasOwnProperty
 
 for in语句以任意顺序遍历一个对象的可枚举属性，包括原型链上的可枚举属性。
 
@@ -222,7 +222,7 @@ hasOwnProperty遍历对象本身的(不包括原型链)的可枚举以及不可�
 
 通过for in 和hasOwnProperty配合可以判断一个属性是对象本身的还是来自于原型链，也可以得到对象本身的可数属性。
 
-#####IE<9下的for in bug
+##### IE<9下的for in bug
 underscore.js中处理了for in在IE<9下的bug。
 
 IE < 9，重写的 `toString` 属性被认为不可枚举。根据这个特性来判断当前浏览器是否是IE<9,代码如下:
@@ -239,7 +239,7 @@ underscore.js通过遍历nonEnumerableProps，并检测每个属性是否包含�
 
 详情可以看collectNonEnumProps函数。
 
-###5.判断对象的类型
+### 5.判断对象的类型
 
 (1)通过Object.prototype.toString.call判断
 
@@ -324,7 +324,7 @@ isUndefined使用void 0，是因为void 0始终返回undefined，但是全局的
     };
 ```
 
-###6.bind
+### 6.bind
 bind函数的polyfill比较复杂。
 
 首先bind返回一个函数，该函数可以被new调用。要根据this的指向，通过instanceof判断是否是new调用，然后返回不一样的返回值。
@@ -333,8 +333,8 @@ bind函数的polyfill比较复杂。
 
 具体看代码吧。
 
-###7.函数节流和去抖
-#####函数节流
+### 7.函数节流和去抖
+##### 函数节流
 throttle。函数节流的作用是以一定的频率执行函数，控制函数的触发频率。
 
 实现方法：
@@ -352,7 +352,7 @@ window.onscroll = _.throttle(log, 1000, {leading: false});
 window.onscroll = _.throttle(log, 1000, {trailing:false});
 ```
 
-#####函数去抖
+##### 函数去抖
 debounce。函数去抖的作用是多次调用函数后，函数真正地执行是在最后一次函数调用后的wait毫秒。
 
 实现方法：在多次连续调用的每一次都设置setTimeout，直到wait时间后，由setTimeout执行函数。
