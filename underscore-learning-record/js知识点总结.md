@@ -211,7 +211,6 @@ class Lion extends Cat {
     console.log(this.name + ' roars.');
   }
 }
-Mix-ins 混
 ```
 
 ### 4.for in 和 hasOwnProperty
