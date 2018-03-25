@@ -148,7 +148,7 @@ const square = new Rectangle(10, 10);
 console.log(square.area);
 // 100
 ```
-静态方法，相当于直接定义在构造函数上的方法，相当于定义了Point.distance.
+静态方法，相当于直接定义在构造函数上的方法，相当于定义了Point.distance，这个函数没有进行复用，每个实例都拥有这个函数的一个备份。
 ```
 class Point {
     constructor(x, y) {
