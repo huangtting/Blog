@@ -32,7 +32,9 @@ instanceof 操作符。
 ### 3.instanceof 和 isPrototypeOf
 ##### (1)首先了解下原型链相关知识:
 
-每个函数都有一个prototype属性，这个属性是一个指针，他指向这个函数的原型对象。也就是每一个函数都有一个原型对象，这个对象可以通过函数的prototype属性访问到。
+每个函数都有一个prototype属性，这个属性是一个指针，他指向这个函数的原型对象。也就是每一个函数都有一个原型对象，这个对象
+
+可以通过函数的prototype属性访问到。
 
 同时，这个原型对象中有一个constructor属性，这个属性也是一个指针，他指向我们创建的那个函数。所以原型和构造函数可以相互通过指针访问。
 
@@ -68,7 +70,7 @@ alert(instance.getSuperValue()); //true
 
 ![2.png](https://github.com/huangtting/Blog/raw/master/images/2.png)
 
-通过原型链进行搜索，就是通过实例的prototype属性不断向上寻找方法，直到原型链末端。
+通过原型链进行搜索，就是通过实例的[[prototype]]属性不断向上寻找方法，直到原型链末端。
 
 最后，所有引用类型默认都继承了Object ，而这个继承也是通过原型链实现的。所有函数的默认原型都是Object 的实例，因此默认原型都会包含一个内部指针，指向 Object.prototype 。
 
